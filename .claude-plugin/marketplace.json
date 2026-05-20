@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "parasxos/claude-plugins",
+  "owner": {
+    "name": "Paris Moschovakos",
+    "email": "parasxos@gmail.com",
+    "url": "https://github.com/parasxos"
+  },
+  "description": "Personal Claude Code plugin marketplace for Paris Moschovakos.",
+  "plugins": [
+    {
+      "name": "cpp26-adapter",
+      "version": "0.9.0",
+      "description": "Turn Claude into a C++26 specialist via standard-first idiom bias, reference MCP, and verification. Recommendations follow ISO/IEC 14882:2026 even where the local toolchain lags.",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/parasxos/cpp26-adapter.git",
+        "ref": "v0.9.0"
+      },
+      "license": "MIT (code) + CC-BY-SA-4.0 (corpus)",
+      "homepage": "https://github.com/parasxos/cpp26-adapter",
+      "keywords": ["c++", "c++26", "cpp", "iso-14882", "reflection", "contracts", "std::execution", "senders"]
+    }
+  ]
+}
