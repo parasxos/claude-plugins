@@ -17,18 +17,25 @@ permissions:
   contents: write
 
 jobs:
-  determine-release-type:
-    name: Check Release Type
+  auto-tag:
+    name: Create Tag
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip tag]')"
     outputs:
-      is_public: ${{ steps.check.outputs.is_public }}
+      new_tag: ${{ steps.create-tag.outputs.new_tag }}
+      tag_created: ${{ steps.create-tag.outputs.tag_created }}
+      is_public: ${{ steps.create-tag.outputs.is_public }}
 
     steps:
-      - name: Checkout for commit message
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
       - name: Determine if public release
         id: check
@@ -45,10 +52,74 @@ jobs:
           fi
           echo "is_public=$IS_PUBLIC" >> $GITHUB_OUTPUT
 
-  auto-tag:
-    name: Create Tag
-    needs: determine-release-type
-    uses: parasxos/cernvironment/.github/workflows/auto-tag-reusable.yml@master
-    with:
-      is_public_release: ${{ needs.determine-release-type.outputs.is_public == 'true' }}
-      runs_on: ubuntu-latest
+      - name: Generate and push tag
+        id: create-tag
+        env:
+          IS_PUBLIC_INPUT: ${{ steps.check.outputs.is_public }}
+        run: |
+          set -e
+
+          # Fetch all tags
+          git fetch --all --tags
+
+          # Get today's date in YYMMDD format
+          TODAY=$(date +%y%m%d)
+
+          # Find latest tag matching YYMMDD.PUBLIC.BUILD pattern
+          LATEST_TAG=$(git tag -l '[0-9][0-9][0-9][0-9][0-9][0-9].[0-9]*.[0-9]*' --sort=-v:refname | head -n1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            PUBLIC=0
+            BUILD=0
+          else
+            PUBLIC=$(echo "$LATEST_TAG" | cut -d. -f2)
+            BUILD=$(echo "$LATEST_TAG" | cut -d. -f3)
+          fi
+
+          echo "Latest tag: $LATEST_TAG (PUBLIC=$PUBLIC, BUILD=$BUILD)"
+
+          IS_PUBLIC_RELEASE="$IS_PUBLIC_INPUT"
+          if [ "$IS_PUBLIC_RELEASE" != "true" ]; then
+            IS_PUBLIC_RELEASE="false"
+          fi
+
+          echo "Public release: $IS_PUBLIC_RELEASE"
+
+          if [ "$IS_PUBLIC_RELEASE" = "true" ]; then
+            PUBLIC=$((PUBLIC + 1))
+            BUILD=1
+          else
+            BUILD=$((BUILD + 1))
+          fi
+
+          NEW_TAG="${TODAY}.${PUBLIC}.${BUILD}"
+          echo "New tag: $NEW_TAG (PUBLIC=$PUBLIC, BUILD=$BUILD, is_public=$IS_PUBLIC_RELEASE)"
+
+          if git tag | grep -q "^${NEW_TAG}$"; then
+            echo "Tag $NEW_TAG already exists. Skipping."
+            echo "tag_created=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          git tag -a "$NEW_TAG" -m "Release $NEW_TAG"
+          git push origin "$NEW_TAG"
+
+          echo "::notice::Created tag: $NEW_TAG"
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo "tag_created=true" >> $GITHUB_OUTPUT
+          echo "is_public=$IS_PUBLIC_RELEASE" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        if: steps.create-tag.outputs.tag_created == 'true' && steps.create-tag.outputs.is_public == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.create-tag.outputs.new_tag }}
+          name: Release ${{ steps.create-tag.outputs.new_tag }}
+          body: |
+            ## Release ${{ steps.create-tag.outputs.new_tag }}
+
+            **Commit:** ${{ github.sha }}
+            **Branch:** ${{ github.ref_name }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
