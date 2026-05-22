@@ -5,27 +5,25 @@ marketplace.
 
 ## Plugins
 
-### [`cpp26-adapter`](./cpp26-adapter) — v0.9.0
+### [`cpp26-adapter`](https://github.com/parasxos/cpp26-adapter)
 
-Turn Claude into a C++26 specialist. Reflection, contracts, std::execution
-senders, expansion statements, pack indexing, #embed, std::inplace_vector,
-hazard pointers, RCU, library hardening, and the rest of the C++26 surface
-— biased into Claude's defaults via skill + MCP + reviewer subagent.
+Turn Claude into a C++26 specialist — reflection, contracts, senders, `#embed`, expansion statements, pack indexing, `std::inplace_vector`, hazard pointers, RCU, library hardening, and the rest of the ISO/IEC 14882:2026 surface — biased into Claude's defaults via skill + MCP + reviewer subagent + hooks.
 
 **Recommendations follow the standard, not the toolchain.** If `clang 22` /
 `gcc 16` don't yet implement a feature, the C++26 form is suggested
 anyway; compiler errors are classified informationally as `compiler-lag`
 vs `bug`.
 
-Eval gate (held 39-task suite): **37/39 = 95%** standard-compliance.
+Eval gate (held 39-task suite, bar ≥85%):
+
+- v0.9.0 published refresh: **37/39 = 95%** ✓
+- v0.9.1 published refresh: **35/39 = 90%** ✓
+
+Current pin: **v0.9.2** (hooks.json schema fix; corpus and behaviour identical to v0.9.1). Full history in the [plugin repo](https://github.com/parasxos/cpp26-adapter), including the binding plan and architecture document.
 
 ```
 /plugin install cpp26-adapter@parasxos/claude-plugins
 ```
-
-See the plugin repo at [`parasxos/cpp26-adapter`](https://github.com/parasxos/cpp26-adapter)
-— it carries the full 15-commit build history, the binding plan, and
-the architecture document.
 
 ## Installing this marketplace
 
