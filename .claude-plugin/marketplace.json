@@ -10,12 +10,12 @@
   "plugins": [
     {
       "name": "cpp26-adapter",
-      "version": "0.9.1",
+      "version": "0.9.2",
       "description": "Turn Claude into a C++26 specialist via standard-first idiom bias, reference MCP, and verification. Recommendations follow ISO/IEC 14882:2026 even where the local toolchain lags.",
       "source": {
         "type": "git",
         "url": "https://github.com/parasxos/cpp26-adapter.git",
-        "ref": "v0.9.1"
+        "ref": "v0.9.2"
       },
       "license": "MIT (code) + CC-BY-SA-4.0 (corpus)",
       "homepage": "https://github.com/parasxos/cpp26-adapter",
