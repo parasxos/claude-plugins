@@ -50,6 +50,27 @@
         "on-demand",
         "accessibility"
       ]
+    },
+    {
+      "name": "refresh-title",
+      "version": "0.1.0",
+      "description": "Force a fresh recompute of the current Claude Code session title. Manual override for cases where the cached title is stale (post-/clear, topic pivot). Calls Haiku via subscription auth, validates the result, writes the title cache, patches sessions/<pid>.json. Triggered by /refresh-title or natural phrases.",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/parasxos/refresh-title.git",
+        "ref": "v0.1.0"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/parasxos/refresh-title",
+      "keywords": [
+        "claude-code",
+        "session-title",
+        "session-management",
+        "on-demand",
+        "haiku",
+        "title",
+        "refresh"
+      ]
     }
   ]
 }
