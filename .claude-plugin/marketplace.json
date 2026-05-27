@@ -19,7 +19,39 @@
       },
       "license": "MIT (code) + CC-BY-SA-4.0 (corpus)",
       "homepage": "https://github.com/parasxos/cpp26-adapter",
-      "keywords": ["c++", "c++26", "cpp", "iso-14882", "reflection", "contracts", "std::execution", "senders"]
+      "keywords": [
+        "c++",
+        "c++26",
+        "cpp",
+        "iso-14882",
+        "reflection",
+        "contracts",
+        "std::execution",
+        "senders"
+      ]
+    },
+    {
+      "name": "paris-toolkit",
+      "version": "0.1.0",
+      "description": "Personal skill pack from Paris Moschovakos. Starts with `speak` — on-demand macOS TTS via Ava (Premium), markdown-aware text normalization, configurable voice/rate/cap, and a global mute file. More skills will be added over time.",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/parasxos/claude-skills.git",
+        "ref": "dca216fd5b290512f4c212d4063c3869e9b86ea2"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/parasxos/claude-skills",
+      "keywords": [
+        "tts",
+        "text-to-speech",
+        "macos",
+        "say",
+        "ava",
+        "on-demand",
+        "accessibility",
+        "skills",
+        "parasxos"
+      ]
     }
   ]
 }
