@@ -25,19 +25,19 @@ Current pin: **v0.9.2** (hooks.json schema fix; corpus and behaviour identical t
 /plugin install cpp26-adapter@parasxos/claude-plugins
 ```
 
-### [`paris-toolkit`](https://github.com/parasxos/claude-skills)
+### [`speak`](https://github.com/parasxos/speak)
 
-Personal skill pack. Starts with **`speak`** — on-demand macOS TTS via
-Ava (Premium): markdown stripping, length cap, kill-previous-speech,
-mute-file. Configurable voice/rate/cap via env vars. Triggered by
+On-demand macOS text-to-speech for Claude Code. Defaults to **Ava (Premium)**
+at **250 wpm** with a **1000-char cap**. Markdown stripping, code-block
+replacement, kill-previous-speech, global mute-file. Triggered by
 `/speak`, `/read`, or natural phrases like "read your last answer aloud".
 
-Current pin: **v0.1.0** (skill `speak` v1.2.0). Will grow over time as
-more general-purpose skills from the underlying `claude-skills` repo
-are added to the plugin's `components`.
+Current pin: **v0.1.0**. Plugin lives at
+[parasxos/speak](https://github.com/parasxos/speak) — standalone repo so
+you can install just this without pulling anything else from this account.
 
 ```
-/plugin install paris-toolkit@parasxos/claude-plugins
+/plugin install speak@parasxos/claude-plugins
 ```
 
 ## Installing this marketplace
