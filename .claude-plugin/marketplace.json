@@ -52,24 +52,26 @@
       ]
     },
     {
-      "name": "refresh-title",
-      "version": "0.1.0",
-      "description": "Force a fresh recompute of the current Claude Code session title. Manual override for cases where the cached title is stale (post-/clear, topic pivot). Calls Haiku via subscription auth, validates the result, writes the title cache, patches sessions/<pid>.json. Triggered by /refresh-title or natural phrases.",
+      "name": "session-rename",
+      "version": "0.1.1",
+      "description": "Give your Claude Code sessions meaningful names so you can recognise them at a glance — especially useful when running several agents or coding sessions in parallel. Asks Haiku for a 3-6 word name from the recent transcript turns and patches sessions/<pid>.json so the UI label updates. Subscription-authed (scrubs ANTHROPIC_API_KEY). Triggered by /session-rename, /rename, or natural phrases.",
       "source": {
         "type": "git",
-        "url": "https://github.com/parasxos/refresh-title.git",
-        "ref": "v0.1.0"
+        "url": "https://github.com/parasxos/session-rename.git",
+        "ref": "v0.1.1"
       },
       "license": "MIT",
-      "homepage": "https://github.com/parasxos/refresh-title",
+      "homepage": "https://github.com/parasxos/session-rename",
       "keywords": [
         "claude-code",
+        "session-rename",
+        "session-name",
         "session-title",
-        "session-management",
+        "agent-dashboard",
+        "multi-session",
         "on-demand",
         "haiku",
-        "title",
-        "refresh"
+        "rename"
       ]
     }
   ]
